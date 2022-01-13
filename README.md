@@ -10,6 +10,7 @@ This toy package is created as part of a group project for DSCI524 of UBC-MDS pr
   2. Visualization of line plots for percentage change of the stock price with comparison with market benchmark  
   3. Calculation of volume change with previous trading date, whether volume was increasing or decreasing. This data will be used in then next function for color mapping of bar plot
   4. Visualization of trading volume as bar plots colored by changes in volume in comparison with previous day. This plot will be overlayed with line plots created with the second function
+  
  More information about those functions can be found in docstrings of `/src/pystockwatch/pystockwatch.py`
  
 #### Comparison with similar packages
@@ -22,7 +23,7 @@ $ pip install pystockwatch
 ```
 
 ## Usage
-Usage clarification will be updated after completion of all functions. In general, after installation of this package user will be required to input four parameters: stock_ticker, start_date, end_date and benchmark_ticker. Output results will be in form of an interactive plot based on plotly package. 
+Usage clarification will be updated after completion of all functions. In general, after installation of this package user will be required to input four parameters: `stock_ticker`, `start_date`, `end_date` and `benchmark_ticker`. Output results will be in form of an interactive plot based on "plotly" package. 
 
 ## Contributors
 
