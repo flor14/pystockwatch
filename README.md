@@ -1,5 +1,6 @@
 # pystockwatch
 This toy package is created as part of a group project for DSCI524 of UBC-MDS program. Main idea of the package is to provide a very simple interface for checking movements in stock prices in comparison to the market. This will be implemented by accessing public data from Yahoo Finance by selecting a ticker of the stock, range of start and end dates and benchmark for comparison, such as SP500 or NASDAQ. As a result of data processing with pystockwatch package, user will be able to see a plot with two lines showing percentage change since the start date and volumes of trading. Example of such output from commercial software "TradingView.com" is given below, which will be replaced later with actual example from pystockwatch output
+
  <img src="docs/example.png">
  
  #### Functions description
@@ -28,7 +29,7 @@ Usage clarification will be updated after completion of all functions. In genera
 Affrin Sultana, Helin Wang, Pavel Levchenko, Shi Yan Wang
 
 ## Dependencies
-To use this package please use Python version 3.8 or higher. Also download several dependencies by using a yaml file: [here](https://github.com/UBC-MDS/pystockwatch/dependencies-pystockwatch.yaml) by running the following command at the command line/terminal
+To use this package please use Python version 3.8 or higher. Also download several dependencies with [yaml file](https://github.com/UBC-MDS/pystockwatch/dependencies-pystockwatch.yaml) by running the following command at the command line/terminal
 ``` bash
 conda env create --file dependencies-pystockwatch.yaml
 conda activate pystockwatch
