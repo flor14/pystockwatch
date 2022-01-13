@@ -1,7 +1,7 @@
 # pystockwatch
 This toy package is created as part of a group project for DSCI524 of UBC-MDS program. Main idea of the package is to provide a very simple interface for checking movements in stock prices in comparison to the market. This will be implemented by accessing public data from Yahoo Finance by selecting a ticker of the stock, range of start and end dates and benchmark for comparison, such as SP500 or NASDAQ. As a result of data processing with pystockwatch package, user will be able to see a plot with two lines showing percentage change since the start date and volumes of trading. Example of such output from commercial software "TradingView.com" is given below, which will be replaced later with actual example from pystockwatch output
 
- <img src="docs/example.png">
+ <img src="docs/example.PNG">
  
  #### Functions description
  
