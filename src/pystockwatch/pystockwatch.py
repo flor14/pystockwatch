@@ -4,9 +4,30 @@ import numpy as np
 import yfinance as yf
 
 
-def (stock_ticker, start_date, end_date):
+def increase_pencent(stock_ticker, start_date, end_date):
 #Function 1 for percentage change calculation by Helin
-
+    """
+    Calculate the stock price increase percentage by using end_date price minus start_date price and divided by the start_date price.
+    
+    Parameters
+    ----------
+    stock_ticker: string
+        Ticker of the stock such as 'AAPL'
+    start_date: datetime
+        Initial date for data extraction
+    end_date: datetime 
+        Final data for stock analysis
+    
+    Returns
+    --------
+    The value of stock profit increase percentage.
+    
+    
+    Examples
+    --------
+    >>>increase_percent('AAPL', '01-01-2021', '01-02-2021')
+     
+    """
 
 
 
