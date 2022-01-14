@@ -65,11 +65,19 @@ Ready to contribute? Here's how to set up `pystockwatch` for local development.
 
 5. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests by running pytest.
 
- ```
- poetry run pytest
- ```
+    ```
+    poetry run pytest
+    ```
 
 6. Commit your changes and open a pull request.
+
+    ```
+    git add .
+    git commit -m "Your detailed description of your changes."
+    git push origin name-of-your-bugfix-or-feature
+    ```
+
+7. Submit a pull request through the GitHub website.
 
 ## Pull Request Guidelines
 
