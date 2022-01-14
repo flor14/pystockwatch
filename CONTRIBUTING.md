@@ -42,22 +42,34 @@ If you are proposing a feature:
 
 Ready to contribute? Here's how to set up `pystockwatch` for local development.
 
-1. Download a copy of `pystockwatch` locally.
-2. Install `pystockwatch` using `poetry`:
+1. Fork the `pystockwatch` repo on GitHub.
+
+2. Clone your fork locally.
+
+    ```
+    git clone git@github.com:your_name_here/pystockwatch.git
+    ```
+
+3. Install `pystockwatch` using `poetry`, this is for setting up your fork for local development:
 
     ```console
+    cd pystockwatch/
     $ poetry install
     ```
 
-3. Use `git` (or similar) to create a branch for local development and make your changes:
+4. Use `git` (or similar) to create a branch for local development and make your changes:
 
     ```console
     $ git checkout -b name-of-your-bugfix-or-feature
     ```
 
-4. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
+5. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests by running pytest.
 
-5. Commit your changes and open a pull request.
+ ```
+ poetry run pytest
+ ```
+
+6. Commit your changes and open a pull request.
 
 ## Pull Request Guidelines
 
