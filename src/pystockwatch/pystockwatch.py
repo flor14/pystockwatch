@@ -36,6 +36,9 @@ def pencent_change(stock_ticker, start_date, end_date):
         12-30-2021      23
         12-31-2021      6.5
     """ 
+    pass
+    # TODO
+    
 
 def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     """
@@ -60,7 +63,8 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     --------
     >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
     """
-
+    pass
+    # TODO
 
 
 def volumeChange(stock_ticker, start_date, end_date):
@@ -93,6 +97,7 @@ def volumeChange(stock_ticker, start_date, end_date):
     """
     pass
     # TODO
+    
 
 def volume_viz(stock_ticker, start_date, end_date):
     """
@@ -115,3 +120,5 @@ def volume_viz(stock_ticker, start_date, end_date):
     --------
     >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
     """
+    pass
+    # TODO
