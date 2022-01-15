@@ -42,8 +42,36 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
 
 
-def (stock_ticker, start_date, end_date):
-#Function 3 for volume change calculations by Shi Yan
+def volumeChange(stock_ticker, start_date, end_date):
+    """ 
+    Return a dataframe that indicates daily volume change against previous day for the given time period
+
+    Parameters
+    ----------
+    stock_ticker: string
+        Ticker of the stock such as 'AAPL'
+    start_date: datetime
+        Initial date for data extraction
+    end_date: datetime 
+        Final data for stock analysis
+
+
+    Returns:
+        [pandas.core.frame.DataFrame]: [A Pandas dataframe contains indicators of daily volume change]
+
+    Examples:
+        >>> volumeChange('AAPL', '01-01-2015', '01-01-2022)
+        0       Nan
+        1       Increase
+        2       Increase
+        3       Decrease
+        ...
+        2255    Increase
+        2256    Increase
+    """
+    pass
+    # TODO
+
 
 
 
