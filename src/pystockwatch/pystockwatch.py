@@ -7,10 +7,10 @@ import numpy as np
 import yfinance as yf
 
 
-def increase_pencent(stock_ticker, start_date, end_date):
+def pencent_change(stock_ticker, start_date, end_date):
 #Function 1 for percentage change calculation by Helin
     """
-    Calculate the stock price increase percentage by using end_date price minus start_date price and divided by the start_date price.
+    Calculate the percentage of stock price change for each day compared to the start date for a selected period.
     
     Parameters
     ----------
@@ -19,18 +19,25 @@ def increase_pencent(stock_ticker, start_date, end_date):
     start_date: datetime
         Initial date for data extraction
     end_date: datetime 
-        Final data for stock analysis
+        Final date for stock analysis
     
     Returns
     --------
-    The value of stock profit increase percentage.
+    DataFrame:
+        A data frame with dates and their corresponding stock price percentage changes.
     
     
     Examples
     --------
-    >>>increase_percent('AAPL', '01-01-2021', '01-02-2021')
-     
-    """
+    >>> increase_percent('AAPL', '01-01-2021', '12-31-2021')
+        Date            Price Change Percentage(%)
+        01-01-2021      0
+        01-02-2021      0.7
+        01-03-2021      1.1
+        ...
+        12-30-2021      23
+        12-31-2021      26.5
+    """ 
 
 
 
@@ -46,7 +53,7 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     start_date: datetime
         Initial date for data extraction
     end_date: datetime 
-        Final data for stock analysis
+        Final date for stock analysis
     benchmark_ticker: string
         Ticker with which comparison is to be done such as 'SPX' 
     
@@ -74,7 +81,7 @@ def volumeChange(stock_ticker, start_date, end_date):
     start_date: datetime
         Initial date for data extraction
     end_date: datetime 
-        Final data for stock analysis
+        Final date for stock analysis
 
 
     Returns:
@@ -107,7 +114,7 @@ def volume_viz(stock_ticker, start_date, end_date):
     start_date: datetime
         Initial date for data extraction
     end_date: datetime 
-        Final data for stock analysis
+        Final date for stock analysis
     
     Returns
     --------
