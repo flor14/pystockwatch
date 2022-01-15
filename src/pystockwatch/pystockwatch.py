@@ -25,7 +25,6 @@ def pencent_change(stock_ticker, start_date, end_date):
     DataFrame
         A data frame with dates and their corresponding stock price percentage changes.
     
-    
     Examples
     --------
     >>> increase_percent('AAPL', '01-01-2021', '12-31-2021')
@@ -35,13 +34,10 @@ def pencent_change(stock_ticker, start_date, end_date):
         01-03-2021      1.1
         ...
         12-30-2021      23
-        12-31-2021      26.5
+        12-31-2021      6.5
     """ 
 
-
-
 def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
-
     """
     Visualize trend of a stock profit rate change against the market benchmark within a given period of time.
     
@@ -58,13 +54,11 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     
     Returns
     --------
-    interactive line plots which shows the percentage change in profit over time 
-    
+    Interactive line plots which shows the percentage change in profit over time 
     
     Examples
     --------
-    profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
-    
+    >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
     """
 
 
@@ -81,12 +75,13 @@ def volumeChange(stock_ticker, start_date, end_date):
         Initial date for data extraction
     end_date : string 
         Final date for stock analysis
-
-
-    Returns:
+        
+    Returns
+    --------
         A data frame with dates and their corresponding trading volume changes.
 
-    Examples:
+    Examples
+    --------
         >>> volumeChange('AAPL', '01-01-2021', '01-01-2022)
         01-01-2021       Nan
         01-02-2021       Increase
@@ -98,9 +93,6 @@ def volumeChange(stock_ticker, start_date, end_date):
     """
     pass
     # TODO
-
-
-
 
 def volume_viz(stock_ticker, start_date, end_date):
     """
@@ -117,11 +109,9 @@ def volume_viz(stock_ticker, start_date, end_date):
     
     Returns
     --------
-    interactive plot with overlay of line plots and bar plot
-    
+    Interactive plot with overlay of line plots and bar plot
     
     Examples
     --------
-    volume_viz('AAPL', '01-01-2015', '01-01-2022')
-     
+    >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
     """
