@@ -8,17 +8,16 @@ import yfinance as yf
 
 
 def pencent_change(stock_ticker, start_date, end_date):
-#Function 1 for percentage change calculation by Helin
     """
     Calculate the percentage of stock price change for each day compared to the start date for a selected period.
     
     Parameters
     ----------
-    stock_ticker: string
+    stock_ticker : string 
         Ticker of the stock such as 'AAPL'
-    start_date: datetime
+    start_date : string
         Initial date for data extraction
-    end_date: datetime 
+    end_date : string
         Final date for stock analysis
     
     Returns
@@ -48,13 +47,13 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     
     Parameters
     ----------
-    stock_ticker: string
+    stock_ticker : string
         Ticker of the stock such as 'AAPL'
-    start_date: datetime
+    start_date : string 
         Initial date for data extraction
-    end_date: datetime 
+    end_date : string
         Final date for stock analysis
-    benchmark_ticker: string
+    benchmark_ticker : string 
         Ticker with which comparison is to be done such as 'SPX' 
     
     Returns
@@ -76,26 +75,26 @@ def volumeChange(stock_ticker, start_date, end_date):
 
     Parameters
     ----------
-    stock_ticker: string
+    stock_ticker : string 
         Ticker of the stock such as 'AAPL'
-    start_date: datetime
+    start_date : string
         Initial date for data extraction
-    end_date: datetime 
+    end_date : string 
         Final date for stock analysis
 
 
     Returns:
-        [pandas.core.frame.DataFrame]: [A Pandas dataframe contains indicators of daily volume change]
+        A data frame with dates and their corresponding trading volume changes.
 
     Examples:
-        >>> volumeChange('AAPL', '01-01-2015', '01-01-2022)
-        0       Nan
-        1       Increase
-        2       Increase
-        3       Decrease
+        >>> volumeChange('AAPL', '01-01-2021', '01-01-2022)
+        01-01-2021       Nan
+        01-02-2021       Increase
+        01-03-2021       Increase
+        01-04-2021       Decrease
         ...
-        2255    Increase
-        2256    Increase
+        12-31-2021       Increase
+        01-01-2022       Increase
     """
     pass
     # TODO
@@ -109,11 +108,11 @@ def volume_viz(stock_ticker, start_date, end_date):
     
     Parameters
     ----------
-    stock_ticker: string
+    stock_ticker : string  
         Ticker of the stock such as 'AAPL'
-    start_date: datetime
+    start_date : string 
         Initial date for data extraction
-    end_date: datetime 
+    end_date : string 
         Final date for stock analysis
     
     Returns
