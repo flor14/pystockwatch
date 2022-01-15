@@ -1,5 +1,4 @@
-# author: Affrin Sultana,Helin Wang, Shi Yan Wang and Pavel Levchenko
-# date: 2022-14-01
+# authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
 
 import plotly.express as px
 import pandas as pd
@@ -8,11 +7,8 @@ import yfinance as yf
 
 
 def percent_change(stock_ticker, start_date, end_date):
-
-#Function 1 for percentage change calculation by Helin
-
     """
-    Calculate the daily profit percentage change of a stock within a given period of time.
+    Calculates daily percentage change of a stock price within a given period of time
     
     Parameters
     ----------
@@ -40,13 +36,12 @@ def percent_change(stock_ticker, start_date, end_date):
         12-31-2021      6.5
     """ 
     pass
-
     # TODO
 
 
 def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     """
-    Visualize trend of a stock profit rate change against the market benchmark within a given period of time.
+    Visualizes trend of a stock price change against the market benchmark within a given period of time
     
     Parameters
     ----------
@@ -57,17 +52,24 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     end_date : string
         Final date for stock analysis
     benchmark_ticker : string 
-        Ticker with which comparison is to be done such as 'SPX' 
+        Ticker for benchmark comparison such as 'SPX' 
     
     Returns
     --------
-    Interactive line plots which shows the percentage change in profit over time 
+    Interactive line plots which shows percentage change in stock price and market performance over time 
     
     Examples
     --------
     >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
     """
     pass
+    # TODO
+
+
+def volume_change(stock_ticker, start_date, end_date):
+    """ 
+    Calculate the daily trading volume change status of a stock within a given period of time
+=======
 
     # TODO
 
@@ -75,7 +77,7 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
 def volume_change(stock_ticker, start_date, end_date):
     """ 
-    Calculate the daily trading volume change status of a stock within a given period of time.
+    Calculates the daily trading volume change status of a stock within a given period of time
 
     Parameters
     ----------
@@ -88,7 +90,7 @@ def volume_change(stock_ticker, start_date, end_date):
         
     Returns
     --------
-        A data frame with dates and their corresponding trading volume changes.
+        A data frame with dates and their corresponding trading volume changes
 
     Examples
     --------
@@ -107,7 +109,7 @@ def volume_change(stock_ticker, start_date, end_date):
 
 def volume_viz(stock_ticker, start_date, end_date):
     """
-    Visualize the daily trading volume of a stock using bar plot within a given period of time.
+    Visualize the daily trading volume of a stock using bar plot within a given period of time
 
     Parameters
     ----------
