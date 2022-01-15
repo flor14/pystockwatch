@@ -69,6 +69,15 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 def volume_change(stock_ticker, start_date, end_date):
     """ 
     Calculate the daily trading volume change status of a stock within a given period of time
+=======
+
+    # TODO
+
+
+
+def volume_change(stock_ticker, start_date, end_date):
+    """ 
+    Calculates the daily trading volume change status of a stock within a given period of time
 
     Parameters
     ----------
