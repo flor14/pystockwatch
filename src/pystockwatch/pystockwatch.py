@@ -9,7 +9,7 @@ import yfinance as yf
 
 def pencent_change(stock_ticker, start_date, end_date):
     """
-    Calculate the percentage of stock price change for each day compared to the start date for a selected period.
+    Calculate the daily profit rate change of a stock within a given period of time.
     
     Parameters
     ----------
@@ -22,7 +22,7 @@ def pencent_change(stock_ticker, start_date, end_date):
     
     Returns
     --------
-    DataFrame:
+    DataFrame
         A data frame with dates and their corresponding stock price percentage changes.
     
     
@@ -43,7 +43,7 @@ def pencent_change(stock_ticker, start_date, end_date):
 def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
     """
-    Creates line plot showing the percentage change in profit for a given stock ticker in comparison to the benchmark ticker for a given date range
+    Visualize trend of a stock profit rate change against the market benchmark within a given period of time.
     
     Parameters
     ----------
@@ -71,7 +71,7 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
 def volumeChange(stock_ticker, start_date, end_date):
     """ 
-    Return a dataframe that indicates daily volume change against previous day for the given time period
+    Calculate the daily trading volume change status of a stock within a given period of time.
 
     Parameters
     ----------
@@ -104,8 +104,8 @@ def volumeChange(stock_ticker, start_date, end_date):
 
 def volume_viz(stock_ticker, start_date, end_date):
     """
-    Creates bar plot with trading volumes for a given stock colored by changes in volume, where increased volume is colored by green and decreased volume is colored by reduce
-    
+    Visualize the daily trading volume of a stock using bar plot within a given period of time.
+
     Parameters
     ----------
     stock_ticker : string  
