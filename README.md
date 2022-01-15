@@ -6,10 +6,14 @@ This toy package is created as part of a group project for DSCI524 of UBC-MDS pr
  #### Functions description
  
  This package will be built with following four functions:
-  1. Extracting data from Yahoo finance for a given stock and dates ranges and making calculations of percentage change of the stock prices since the start date
-  2. Visualization of line plots for percentage change of the stock price with comparison with market benchmark  
-  3. Calculation of volume change with previous trading date, whether volume was increasing or decreasing. This data will be used in then next function for color mapping of bar plot
-  4. Visualization of trading volume as bar plots colored by changes in volume in comparison with previous day. This plot will be overlayed with line plots created with the second function
+ - `percent_change`
+ Calculation of profit percentage change of a stock for a given period of time based on data extracted from Yahoo finance.
+ - `profit_viz`
+ Visualization of profit percentage change trend of a stock against market benchmark for a given period of time.  
+ - `volume_change`
+ Calculation of daily trading volume change of a stock, whether it is increasing or decreasing. This data will be used in then next function for color mapping of bar plot.
+ - `volume_viz`
+ Visualization of trading volume as bar plots colored by changes in volume in comparison with previous day. This plot will be overlayed with line plots created with the second function.
   
  More information about those functions can be found in docstrings of `/src/pystockwatch/pystockwatch.py`
  
