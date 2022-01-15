@@ -7,9 +7,9 @@ import numpy as np
 import yfinance as yf
 
 
-def pencent_change(stock_ticker, start_date, end_date):
+def percent_change(stock_ticker, start_date, end_date):
     """
-    Calculate the daily profit rate change of a stock within a given period of time.
+    Calculate the daily profit percentage change of a stock within a given period of time.
     
     Parameters
     ----------
