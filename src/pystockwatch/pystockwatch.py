@@ -29,7 +29,7 @@ def percent_change(stock_ticker, start_date, end_date):
     
     Examples
     --------
-    >>> increase_percent('AAPL', '01-01-2021', '12-31-2021')
+    >>> percent_change('AAPL', '01-01-2021', '12-31-2021')
         Date            Price Change Percentage(%)
         01-01-2021      0
         01-02-2021      0.7
@@ -38,6 +38,7 @@ def percent_change(stock_ticker, start_date, end_date):
         12-30-2021      23
         12-31-2021      26.5
     """ 
+    pass
 
 
 
@@ -67,6 +68,7 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
     
     """
+    pass
 
 
 
@@ -126,3 +128,4 @@ def volume_viz(stock_ticker, start_date, end_date):
     volume_viz('AAPL', '01-01-2015', '01-01-2022')
      
     """
+    pass
