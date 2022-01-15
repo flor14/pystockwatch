@@ -7,7 +7,7 @@ import numpy as np
 import yfinance as yf
 
 
-def pencent_change(stock_ticker, start_date, end_date):
+def percent_change(stock_ticker, start_date, end_date):
 #Function 1 for percentage change calculation by Helin
     """
     Calculate the percentage of stock price change for each day compared to the start date for a selected period.
