@@ -8,6 +8,9 @@ import yfinance as yf
 
 
 def percent_change(stock_ticker, start_date, end_date):
+
+#Function 1 for percentage change calculation by Helin
+
     """
     Calculate the daily profit percentage change of a stock within a given period of time.
     
@@ -27,7 +30,7 @@ def percent_change(stock_ticker, start_date, end_date):
     
     Examples
     --------
-    >>> increase_percent('AAPL', '01-01-2021', '12-31-2021')
+    >>> percent_change('AAPL', '01-01-2021', '12-31-2021')
         Date            Price Change Percentage(%)
         01-01-2021      0
         01-02-2021      0.7
@@ -37,8 +40,9 @@ def percent_change(stock_ticker, start_date, end_date):
         12-31-2021      6.5
     """ 
     pass
+
     # TODO
-    
+
 
 def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     """
@@ -64,7 +68,9 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
     """
     pass
+
     # TODO
+
 
 
 def volume_change(stock_ticker, start_date, end_date):
