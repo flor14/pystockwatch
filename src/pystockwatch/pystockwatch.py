@@ -23,15 +23,21 @@ def pencent_change(stock_ticker, start_date, end_date):
     
     Returns
     --------
-    Data frame:
+    DataFrame:
         A data frame with dates and their corresponding stock price percentage changes.
     
     
     Examples
     --------
-    >>> increase_percent('AAPL', '01-01-2021', '01-05-2021')
-     
-    """
+    >>> increase_percent('AAPL', '01-01-2021', '12-31-2021')
+        Date            Price Change Percentage(%)
+        01-01-2021      0
+        01-02-2021      0.7
+        01-03-2021      1.1
+        ...
+        12-30-2021      23
+        12-31-2021      26.5
+    """ 
 
 
 
