@@ -34,8 +34,14 @@ def percent_change(stock_ticker, start_date, end_date):
     """ 
 
     data = yf.download(stock_ticker, start=start_date, end=end_date)
-
+    
+    data = data.drop(columns={'Open', 'High', 'Low', 'Close', 'Volume'})
+    
     for i in range(1,len(data)):
         data.iloc[i,:] = (data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]
-
-    # return pd.DataFrame(data[['Close']])
+    
+    data.iloc[0,:] = (data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]
+    
+    data = data.rename(columns={"Adj Close": "Price Change Percentage(%)"})
+    
+    return pd.DataFrame(data)
