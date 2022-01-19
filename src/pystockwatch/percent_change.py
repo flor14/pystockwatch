@@ -1,4 +1,3 @@
-import plotly.express as px
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -33,3 +32,10 @@ def percent_change(stock_ticker, start_date, end_date):
         12-30-2021      23
         12-31-2021      6.5
     """ 
+
+    data = yf.download(stock_ticker, start=start_date, end=end_date)
+
+    for i in range(1,len(data)):
+        data.iloc[i,:] = (data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]
+
+    # return pd.DataFrame(data[['Close']])
