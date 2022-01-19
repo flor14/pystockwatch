@@ -1,6 +1,7 @@
 # authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
 
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -146,5 +147,19 @@ def volume_viz(stock_ticker, start_date, end_date):
     --------
     >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
     """
-    pass
-    # TODO
+    vdf = volume_change(stock_ticker, start_date, end_date)
+    vdf_increase = vdf.loc[vdf['Volume_Change']=='Increase']
+    vdf_decrease = vdf.loc[vdf['Volume_Change']=='Decrease']
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=vdf_increase['Date'], y=vdf_increase['Volume'],
+                    base=0,
+                    marker_color='green',
+                    name='Volume Increase'))
+    fig.add_trace(go.Bar(x=vdf_decrease['Date'], y=vdf_decrease['Volume'],
+                    base=0,
+                    marker_color='red',
+                    name='Volume Decrease'
+                    ))
+
+    fig.show()
