@@ -10,7 +10,7 @@ def percent_change(stock_ticker, start_date, end_date):
     Parameters
     ----------
     stock_ticker : string 
-        Ticker of the stock such as 'AAPL'
+        Ticker of the stock such as 'AAPL', or 'AAPL MSFT SPY' for multiple tickers
     start_date : string
         Initial date for data extraction
     end_date : string
@@ -23,14 +23,23 @@ def percent_change(stock_ticker, start_date, end_date):
     
     Examples
     --------
-    >>> percent_change('AAPL', '01-01-2021', '12-31-2021')
-        Date            Price Change Percentage(%)
-        01-01-2021      0
-        01-02-2021      0.7
-        01-03-2021      1.1
-        ...
-        12-30-2021      23
-        12-31-2021      6.5
+    >>> percent_change('AAPL', '2017-01-01', '2017-01-10')
+                    Price Change Percentage(%) 
+              Date
+        2017-01-03                    0.000000
+        2017-01-04                   -0.001119
+        2017-01-05                    0.003960
+        2017-01-06                    0.015153
+        2017-01-09                    0.024451
+    >>> percent_change('AAPL MSFT', '2017-01-01', '2017-01-10')
+                    Price Change Percentage(%) 
+                              AAPL        MSFT
+              Date
+        2017-01-03        0.000000    0.000000
+        2017-01-04       -0.001119   -0.004474
+        2017-01-05        0.003960   -0.004474
+        2017-01-06        0.015153    0.004155
+        2017-01-09        0.024451    0.000959
     """ 
 
     data = yf.download(stock_ticker, start=start_date, end=end_date)
