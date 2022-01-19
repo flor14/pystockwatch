@@ -4,6 +4,9 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import yfinance as yf
+import pandas_datareader as pdr
+import datetime
+import warnings
 
 
 def percent_change(stock_ticker, start_date, end_date):
@@ -86,6 +89,7 @@ def volume_change(stock_ticker, start_date, end_date):
     Examples
     --------
         >>> volume_change('AAPL', '01-01-2021', '01-01-2022)
+        Date             Volume_Change
         01-01-2021       Nan
         01-02-2021       Increase
         01-03-2021       Increase
@@ -94,8 +98,34 @@ def volume_change(stock_ticker, start_date, end_date):
         12-31-2021       Increase
         01-01-2022       Increase
     """
-    pass
-    # TODO
+    yf.pdr_override()
+    # Assert ticker value
+    ticker = yf.Ticker(stock_ticker)
+    if(ticker.info["regularMarketPrice"] == None):
+        raise NameError("You enter an invalid stock ticker! Try again.")
+    # Assert date value
+    format = "%Y-%m-%d"
+    try: datetime.datetime.strptime(start_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid start date! Try again.")
+    try: datetime.datetime.strptime(end_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid end end! Try again.")
+    data = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date)
+    # Assert correct data fetched
+    try:
+        isinstance(data, pd.DataFrame)
+    except ValueError:
+        raise ValueError("You input can't be converted to a pandas dataframe.")
+    df = data["Volume"].diff().to_frame()
+    df["Volume_Change"] = np.select([df["Volume"] > 0, df["Volume"]<0],
+                             ["Increase", "Decrease"],
+                             default = np.nan)
+    # Assert correct indicator values
+    for indicator in df["Volume_Change"]:
+        if(indicator != "Decrease" and indicator != "Increase" and indicator != "nan"):
+            raise ValueError("Incorrect Volume Change indicator")
+    return df[["Volume_Change"]]
     
 
 def volume_viz(stock_ticker, start_date, end_date):
