@@ -71,9 +71,9 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
     
 def volume_change(stock_ticker, start_date, end_date):
-        """ 
+    """ 
     Calculates the daily trading volume change status of a stock within a given period of time
-    
+
     Parameters
     ----------
     stock_ticker : string 
@@ -82,7 +82,7 @@ def volume_change(stock_ticker, start_date, end_date):
         Initial date for data extraction
     end_date : string 
         Final date for stock analysis
-        
+
     Returns
     --------
         A data frame with dates and their corresponding trading volume and changes
@@ -130,7 +130,6 @@ def volume_change(stock_ticker, start_date, end_date):
 def volume_viz(stock_ticker, start_date, end_date):
     """
     Visualize the daily trading volume of a stock using bar plot within a given period of time
-
     Parameters
     ----------
     stock_ticker : string  
@@ -148,7 +147,12 @@ def volume_viz(stock_ticker, start_date, end_date):
     --------
     >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
     """
-    vdf = volume_change(stock_ticker, start_date, end_date)
+    try:
+        vdf = volume_change(stock_ticker, start_date, end_date)
+    # catch when dataframe is None
+    except AttributeError:
+        pass
+    
     vdf_increase = vdf.loc[vdf['Volume_Change']=='Increase']
     vdf_decrease = vdf.loc[vdf['Volume_Change']=='Decrease']
 
