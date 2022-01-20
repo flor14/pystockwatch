@@ -167,4 +167,4 @@ def volume_viz(stock_ticker, start_date, end_date):
                     name='Volume Decrease'
                     ))
 
-    fig.show()
+    return fig
