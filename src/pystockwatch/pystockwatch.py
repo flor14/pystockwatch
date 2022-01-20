@@ -63,12 +63,17 @@ def percent_change(stock_ticker, start_date, end_date):
     try: datetime.datetime.strptime(end_date, format)
     except ValueError:
         raise ValueError("You enter an invalid end end! Try date formatted in YYYY-MM-DD.")
+
+    # Assert end date is later than start date
+    format = "%Y-%m-%d"
+    if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
+        raise ValueError("You enter an end date which is earlier than the start date! Try again.")
     
     # Import original dataframe by giving stock ticker, start data and end date
     data = yf.download(stock_ticker, start=start_date, end=end_date)
     
     # Only Keep "Adj Close" Price for 
-    data = data.drop(columns={'Open', 'High', 'Low', 'Close', 'Volume'})
+    data = data.drop(columns={'Open', 'High', 'Low', 'Adj Close', 'Volume'})
     
     # Carry out calculation
     for i in range(1,len(data)):
@@ -77,7 +82,7 @@ def percent_change(stock_ticker, start_date, end_date):
     data.iloc[0,:] = (data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]*100
     
     # Manipulate column name
-    data = data.rename(columns={"Adj Close": "Price Change Percentage(%)"})
+    data = data.rename(columns={"Close": "Price Change Percentage(%)"})
     
     # Return result
     return pd.DataFrame(data)
