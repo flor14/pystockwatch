@@ -73,6 +73,7 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 def volume_change(stock_ticker, start_date, end_date):
         """ 
     Calculates the daily trading volume change status of a stock within a given period of time
+    
     Parameters
     ----------
     stock_ticker : string 
@@ -84,11 +85,11 @@ def volume_change(stock_ticker, start_date, end_date):
         
     Returns
     --------
-        A data frame with dates and their corresponding trading volume changes
+        A data frame with dates and their corresponding trading volume and changes
     Examples
     --------
         >>> volume_change('AAPL', '2021-01-01', '2022-01-01')
-        Date             Volume Volume_Change
+        Date             Volume       Volume_Change
         01-01-2021        1000        Nan
         01-02-2021        2000        Increase
         01-03-2021        3000        Increase
@@ -123,7 +124,7 @@ def volume_change(stock_ticker, start_date, end_date):
     for indicator in df["Volume_Change"]:
         if(indicator != "Decrease" and indicator != "Increase" and indicator != "nan"):
             raise ValueError("Incorrect Volume Change indicator")
-    return df[['Date','Volume', 'Volume_Change']]
+    return df[['Date', 'Volume', 'Volume_Change']]
     
 
 def volume_viz(stock_ticker, start_date, end_date):
