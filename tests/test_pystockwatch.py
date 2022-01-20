@@ -48,3 +48,4 @@ def volume_viz():
     
     # Check for negative values of trading volume
     assert vdf['Volume'].min() >= 0 
+
