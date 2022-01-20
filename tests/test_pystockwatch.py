@@ -38,4 +38,8 @@ def test_volume_change():
     
 
 def volume_viz():
-  pass
+    vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
+
+    assert vdf.shape[0] >= 1 # Check that at least one row is present in dataframe
+    assert list(vdf.columns) == ['Date', 'Volume', 'Volume_Change'] # Check if all three columns are present in dataframe
+    assert vdf['Volume'].min() >= 0  # Check for negative values of trading volume
