@@ -1,9 +1,13 @@
 # authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
 
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 import yfinance as yf
+import pandas_datareader as pdr
+import datetime
+import warnings
 
 
 def percent_change(stock_ticker, start_date, end_date):
@@ -67,9 +71,8 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
 
     
 def volume_change(stock_ticker, start_date, end_date):
-    """ 
+        """ 
     Calculates the daily trading volume change status of a stock within a given period of time
-
     Parameters
     ----------
     stock_ticker : string 
@@ -82,20 +85,45 @@ def volume_change(stock_ticker, start_date, end_date):
     Returns
     --------
         A data frame with dates and their corresponding trading volume changes
-
     Examples
     --------
-        >>> volume_change('AAPL', '01-01-2021', '01-01-2022)
-        01-01-2021       Nan
-        01-02-2021       Increase
-        01-03-2021       Increase
-        01-04-2021       Decrease
+        >>> volume_change('AAPL', '2021-01-01', '2022-01-01')
+        Date             Volume Volume_Change
+        01-01-2021        1000        Nan
+        01-02-2021        2000        Increase
+        01-03-2021        3000        Increase
+        01-04-2021        2500        Decrease
         ...
-        12-31-2021       Increase
-        01-01-2022       Increase
+        12-31-2021        4000        Increase
+        01-01-2022        5000        Increase
     """
-    pass
-    # TODO
+    yf.pdr_override()
+    # Assert ticker value
+    ticker = yf.Ticker(stock_ticker)
+    if(ticker.info["regularMarketPrice"] == None):
+        raise NameError("You enter an invalid stock ticker! Try again.")
+    # Assert date value
+    format = "%Y-%m-%d"
+    try: datetime.datetime.strptime(start_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid start date! Try again.")
+    try: datetime.datetime.strptime(end_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid end end! Try again.")
+    df = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date)['Volume'].reset_index()
+    # Assert correct data fetched
+    try:
+        isinstance(df, pd.DataFrame)
+    except ValueError:
+        raise ValueError("You input can't be converted to a pandas dataframe.")
+    df['Volume_dif'] = df['Volume'].diff().to_frame()
+    df["Volume_Change"] = np.select([df["Volume_dif"] > 0, df["Volume_dif"]<0], ["Increase", "Decrease"], 
+                                    default = np.nan)
+    # Assert correct indicator values
+    for indicator in df["Volume_Change"]:
+        if(indicator != "Decrease" and indicator != "Increase" and indicator != "nan"):
+            raise ValueError("Incorrect Volume Change indicator")
+    return df[['Date','Volume', 'Volume_Change']]
     
 
 def volume_viz(stock_ticker, start_date, end_date):
@@ -119,5 +147,19 @@ def volume_viz(stock_ticker, start_date, end_date):
     --------
     >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
     """
-    pass
-    # TODO
+    vdf = volume_change(stock_ticker, start_date, end_date)
+    vdf_increase = vdf.loc[vdf['Volume_Change']=='Increase']
+    vdf_decrease = vdf.loc[vdf['Volume_Change']=='Decrease']
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=vdf_increase['Date'], y=vdf_increase['Volume'],
+                    base=0,
+                    marker_color='green',
+                    name='Volume Increase'))
+    fig.add_trace(go.Bar(x=vdf_decrease['Date'], y=vdf_decrease['Volume'],
+                    base=0,
+                    marker_color='red',
+                    name='Volume Decrease'
+                    ))
+
+    fig.show()
