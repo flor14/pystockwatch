@@ -39,13 +39,13 @@ def test_volume_change():
 
 def volume_viz():
     vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
+    assert vdf.shape[0] >= 1, 'dataframe should have at least one row'
+    assert list(vdf.columns) == ['Date', 'Volume', 'Volume_Change'], "columns should be named 'Date', 'Volume', 'Volume_Change'"
+    assert vdf['Volume'].min() >= 0, 'trading volumes should be positive'
     
-    # Check that at least one row is present in dataframe
-    assert vdf.shape[0] >= 1 
+
+    fig = volume_viz('AAPL', '2015-01-01', '2015-01-05')
+    assert str(fig.select_xaxes).split("'type':")[1].split(',')[0].replace("'", "").replace(' ', '') == 'bar', 'volumes should be plotted as bar chart'
     
-    # Check if all three columns are present in dataframe
-    assert list(vdf.columns) == ['Date', 'Volume', 'Volume_Change'] 
     
-    # Check for negative values of trading volume
-    assert vdf['Volume'].min() >= 0 
 
