@@ -48,6 +48,22 @@ def percent_change(stock_ticker, start_date, end_date):
         2017-01-09          2.4451      0.0959
     """ 
     
+    # Assert ticker input value
+    ticker = yf.Ticker(stock_ticker)
+    if(ticker.info["regularMarketPrice"] == None):
+        raise NameError("You enter an invalid stock ticker! Try again.")
+    
+    # Assert start date input value
+    format = "%Y-%m-%d"
+    try: datetime.datetime.strptime(start_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid start date! Try date formatted in YYYY-MM-DD.")
+    
+    # Assert end date input value
+    try: datetime.datetime.strptime(end_date, format)
+    except ValueError:
+        raise ValueError("You enter an invalid end end! Try date formatted in YYYY-MM-DD.")
+    
     # Import original dataframe by giving stock ticker, start data and end date
     data = yf.download(stock_ticker, start=start_date, end=end_date)
     
