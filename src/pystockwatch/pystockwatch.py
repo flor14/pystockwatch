@@ -1,7 +1,8 @@
 # authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
 
-import plotly.express as px
+# import plotly.express as px
 import plotly.graph_objects as go
+import altair as alt
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -88,7 +89,7 @@ def percent_change(stock_ticker, start_date, end_date):
     return pd.DataFrame(data)
 
 
-def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
+def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     """
     Visualizes trend of a stock price change against the market benchmark within a given period of time
     
@@ -101,41 +102,58 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     end_date : string
         Final date for stock analysis
     benchmark_ticker : string 
-        Ticker for benchmark comparison such as 'SPX' 
+        Ticker for benchmark comparison such as 'SP500' 
     
     Returns
     --------
-    Interactive line plots which shows percentage change in stock price and market performance over time 
+     Line plots which shows percentage change in stock price and market performance over time 
     
     Examples
     --------
     >>> profit_viz('AAPL', '2015-01-01', '2021-31-12', 'SP500')
     """
-     # Assert ticker input value
+
+    
     ticker = yf.Ticker(stock_ticker)
-    if(ticker.info["regularMarketPrice"] == None):
-        raise NameError("You have entered an invalid stock ticker! Try again.")
+    bench_ticker = yf.Ticker(benchmark_ticker)
+
+    try:
+         # Assert ticker input value
+        if(ticker.info["regularMarketPrice"] == None):
+            raise NameError("You have entered an invalid stock ticker! Try again.")
+
+        # check data type of input
+        if type(stock_ticker) != str:
+            raise TypeError("stock_ticker should be of type string.")
     
      # Assert benchmark ticker input value
-    bench_ticker = yf.Ticker(benchmark_ticker)
-    if(bench_ticker.info["regularMarketPrice"] == None):
-        raise NameError("You have entered an invalid benchmark ticker! Try again.")
+    
+        if(bench_ticker.info["regularMarketPrice"] == None):
+            raise NameError("You have entered an invalid benchmark ticker! Try again.")
+
+        # check data type of input
+        if type(benchmark_ticker) != str:
+            raise TypeError("Bench Mark ticker should be of type string.")
     
     # Assert start date input value
-    format = "%Y-%m-%d"
-    try: datetime.datetime.strptime(start_date, format)
-    except ValueError:
-        raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
+        format = "%Y-%m-%d"
+        try: datetime.datetime.strptime(start_date, format)
+        except ValueError:
+            raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
     
     # Assert end date input value
-    try: datetime.datetime.strptime(end_date, format)
-    except ValueError:
-        raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
+        try: datetime.datetime.strptime(end_date, format)
+        except ValueError:
+            raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
 
     # Assert end date is later than start date
-    format = "%Y-%m-%d"
-    if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
-        raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
+        format = "%Y-%m-%d"
+        if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
+            raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
+       
+    except (TypeError, ValueError, NameError) as err:
+        print(err)
+        raise 
 
     # Code to generate the visualization of profit 
     try:
@@ -143,12 +161,11 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
         benchmark_profit = percent_change(benchmark_ticker, start_date, end_date).reset_index()
         profit_df = pd.merge(stock_profit, benchmark_profit, on="Date")
         profit_df.rename({'Price Change Percentage(%)_x': 'Profit Percent Stock', 'Price Change Percentage(%)_y': 'Profit Percent Benchmark'}, axis=1, inplace=True)
-
-
     # catch when dataframe is None
     except AttributeError:
         pass
 
+    #Checks if the datatype of data frame is correct
     try:
         isinstance(profit_df, pd.DataFrame)
     except ValueError:
@@ -167,11 +184,11 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     # Code to plot the profit visualization
     chart = alt.Chart(profit_df).mark_line().transform_fold(
     fold=['Profit Percent Stock', 'Profit Percent Benchmark'], 
-    as_=['variable', 'Profit Percent']
+    as_=['company', 'Profit Percent']
 ).encode(
     x='Date:T', 
     y='Profit Percent:Q',
-    color=alt.Color('variable:N', scale= alt.Scale(domain=['Profit Percent Stock', 'Profit Percent Benchmark'], range=['gold', 'red']))
+    color=alt.Color('company:N', scale= alt.Scale(domain=[stock_ticker,benchmark_ticker], range=['red', 'blue']))
 )
     return chart
 
