@@ -9,6 +9,7 @@ import yfinance as yf
 import pandas_datareader as pdr
 import datetime
 import warnings
+alt.renderers.enable('altair_viewer')
 
 def percent_change(stock_ticker, start_date, end_date):
     """
@@ -188,8 +189,8 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
 ).encode(
     x='Date:T', 
     y='Profit Percent:Q',
-    color=alt.Color('company:N', scale= alt.Scale(domain=['Profit Percent Stock','Profit Percent Benchmark'], range=['red', 'blue']),
-    tooltip=[alt.Tooltip('Profit Percent Stock'),alt.Tooltip('Profit Percent Benchmark')])
+    color=alt.Color('company:N', scale= alt.Scale(domain=['Profit Percent Stock','Profit Percent Benchmark'], range=['red', 'blue'])),
+    tooltip=[alt.Tooltip('Profit Percent Stock'),alt.Tooltip('Profit Percent Benchmark')]
 )
     return chart
 
