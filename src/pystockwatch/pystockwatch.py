@@ -109,10 +109,57 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     
     Examples
     --------
-    >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
+    >>> profit_viz('AAPL', '2015-01-01', '2021-31-12', 'SP500')
     """
-    pass
-    # TODO
+     # Assert ticker input value
+    ticker = yf.Ticker(stock_ticker)
+    if(ticker.info["regularMarketPrice"] == None):
+        raise NameError("You have entered an invalid stock ticker! Try again.")
+    
+     # Assert benchmark ticker input value
+    bench_ticker = yf.Ticker(benchmark_ticker)
+    if(bench_ticker.info["regularMarketPrice"] == None):
+        raise NameError("You have entered an invalid benchmark ticker! Try again.")
+    
+    # Assert start date input value
+    format = "%Y-%m-%d"
+    try: datetime.datetime.strptime(start_date, format)
+    except ValueError:
+        raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
+    
+    # Assert end date input value
+    try: datetime.datetime.strptime(end_date, format)
+    except ValueError:
+        raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
+
+    # Assert end date is later than start date
+    format = "%Y-%m-%d"
+    if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
+        raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
+
+    # Code to generate the visualization of profit 
+    try:
+        stock_profit = percent_change(stock_ticker, start_date, end_date).reset_index()
+        benchmark_profit = percent_change(benchmark_ticker, start_date, end_date).reset_index()
+    # catch when dataframe is None
+    except AttributeError:
+        pass
+
+    try:
+        isinstance(stock_profit, pd.DataFrame)
+    except ValueError:
+        raise ValueError("Stock_profit couldnot be converted to a pandas dataframe.")
+
+    try:
+        isinstance(benchmark_profit, pd.DataFrame)
+    except ValueError:
+        raise ValueError("Benchmark_profit couldnot be converted to a pandas dataframe.")
+
+    # Code to plot the profit visualization
+    fig = go.Figure()
+    fig = px.line(stock_profit, x="Date", y="Price Change Percentage(%)", title='Stock Profit')
+    fig = px.line(benchmark_profit, x="Date", y="Price Change Percentage(%)", title='Benchmark Profit')
+    return fig
 
     
 def volume_change(stock_ticker, start_date, end_date):
