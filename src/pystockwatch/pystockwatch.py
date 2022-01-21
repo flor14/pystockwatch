@@ -51,23 +51,23 @@ def percent_change(stock_ticker, start_date, end_date):
     # Assert ticker input value
     ticker = yf.Ticker(stock_ticker)
     if(ticker.info["regularMarketPrice"] == None):
-        raise NameError("You enter an invalid stock ticker! Try again.")
+        raise NameError("You have entered an invalid stock ticker! Try again.")
     
     # Assert start date input value
     format = "%Y-%m-%d"
     try: datetime.datetime.strptime(start_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid start date! Try date formatted in YYYY-MM-DD.")
+        raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
     
     # Assert end date input value
     try: datetime.datetime.strptime(end_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid end end! Try date formatted in YYYY-MM-DD.")
+        raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
 
     # Assert end date is later than start date
     format = "%Y-%m-%d"
     if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
-        raise ValueError("You enter an end date which is earlier than the start date! Try again.")
+        raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
     
     # Import original dataframe by giving stock ticker, start data and end date
     data = yf.download(stock_ticker, start=start_date, end=end_date)
@@ -147,21 +147,21 @@ def volume_change(stock_ticker, start_date, end_date):
     # Assert ticker value
     ticker = yf.Ticker(stock_ticker)
     if(ticker.info["regularMarketPrice"] == None):
-        raise NameError("You enter an invalid stock ticker! Try again.")
+        raise NameError("You have entered an invalid stock ticker! Try again.")
     # Assert date value
     format = "%Y-%m-%d"
     try: datetime.datetime.strptime(start_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid start date! Try again.")
+        raise ValueError("You have entered an invalid start date! Try again.")
     try: datetime.datetime.strptime(end_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid end end! Try again.")
+        raise ValueError("You have entered an invalid end date! Try again.")
     df = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date)['Volume'].reset_index()
     # Assert correct data fetched
     try:
         isinstance(df, pd.DataFrame)
     except ValueError:
-        raise ValueError("You input can't be converted to a pandas dataframe.")
+        raise ValueError("Your input can't be converted to a pandas dataframe.")
     df['Volume_dif'] = df['Volume'].diff().to_frame()
     df["Volume_Change"] = np.select([df["Volume_dif"] > 0, df["Volume_dif"]<0], ["Increase", "Decrease"], 
                                     default = np.nan)
