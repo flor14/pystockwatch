@@ -141,14 +141,23 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     try:
         stock_profit = percent_change(stock_ticker, start_date, end_date).reset_index()
         benchmark_profit = percent_change(benchmark_ticker, start_date, end_date).reset_index()
+        profit_df = pd.merge(stock_profit, benchmark_profit, on="Date")
+        profit_df.rename({'Price Change Percentage(%)_x': 'Profit Percent Stock', 'Price Change Percentage(%)_y': 'Profit Percent Benchmark'}, axis=1, inplace=True)
+
+
     # catch when dataframe is None
     except AttributeError:
         pass
 
     try:
+        isinstance(profit_df, pd.DataFrame)
+    except ValueError:
+        raise ValueError("profit_df is not a pandas dataframe.")
+    
+    try:
         isinstance(stock_profit, pd.DataFrame)
     except ValueError:
-        raise ValueError("Stock_profit couldnot be converted to a pandas dataframe.")
+        raise ValueError("stock_profit couldnot be converted to a pandas dataframe.")
 
     try:
         isinstance(benchmark_profit, pd.DataFrame)
@@ -156,10 +165,15 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
         raise ValueError("Benchmark_profit couldnot be converted to a pandas dataframe.")
 
     # Code to plot the profit visualization
-    fig = go.Figure()
-    fig = px.line(stock_profit, x="Date", y="Price Change Percentage(%)", title='Stock Profit')
-    fig = px.line(benchmark_profit, x="Date", y="Price Change Percentage(%)", title='Benchmark Profit')
-    return fig
+    chart = alt.Chart(profit_df).mark_line().transform_fold(
+    fold=['Profit Percent Stock', 'Profit Percent Benchmark'], 
+    as_=['variable', 'Profit Percent']
+).encode(
+    x='Date:T', 
+    y='Profit Percent:Q',
+    color=alt.Color('variable:N', scale= alt.Scale(domain=['Profit Percent Stock', 'Profit Percent Benchmark'], range=['gold', 'red']))
+)
+    return chart
 
     
 def volume_change(stock_ticker, start_date, end_date):
