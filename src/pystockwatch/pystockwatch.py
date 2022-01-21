@@ -188,7 +188,8 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
 ).encode(
     x='Date:T', 
     y='Profit Percent:Q',
-    color=alt.Color('company:N', scale= alt.Scale(domain=[stock_ticker,benchmark_ticker], range=['red', 'blue']))
+    color=alt.Color('company:N', scale= alt.Scale(domain=['Profit Percent Stock','Profit Percent Benchmark'], range=['red', 'blue']),
+    tooltip=[alt.Tooltip('Profit Percent Stock'),alt.Tooltip('Profit Percent Benchmark')])
 )
     return chart
 
