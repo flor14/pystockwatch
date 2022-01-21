@@ -190,7 +190,7 @@ def volume_viz(stock_ticker, start_date, end_date):
     
     Examples
     --------
-    >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
+    >>> volume_viz('AAPL', '2021-01-01', '2022-01-01')
     """
     try:
         vdf = volume_change(stock_ticker, start_date, end_date)
