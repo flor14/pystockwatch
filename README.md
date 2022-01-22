@@ -27,7 +27,7 @@ $ pip install pystockwatch
 ```
 
 ## Usage
-Usage clarification will be updated after completion of all functions. In general, after installation of this package user will be required to input four parameters: `stock_ticker`, `start_date`, `end_date` and `benchmark_ticker`. Output results will be in form of an interactive plot based on "plotly" package. 
+Usage clarification will be updated after completion of all functions. In general, after installation of this package user will be required to input four parameters: `stock_ticker`, `start_date`, `end_date` and `benchmark_ticker`. Output results will be in form of an interactive plot based on "plotly" and "altair" package. 
 
 ## Contributors
 
