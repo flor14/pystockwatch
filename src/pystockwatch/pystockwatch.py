@@ -1,13 +1,15 @@
 # authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
 
-import plotly.express as px
+# import plotly.express as px
 import plotly.graph_objects as go
+import altair as alt
 import pandas as pd
 import numpy as np
 import yfinance as yf
 import pandas_datareader as pdr
 import datetime
 import warnings
+alt.renderers.enable('altair_viewer')
 
 def percent_change(stock_ticker, start_date, end_date):
     """
@@ -51,23 +53,23 @@ def percent_change(stock_ticker, start_date, end_date):
     # Assert ticker input value
     ticker = yf.Ticker(stock_ticker)
     if(ticker.info["regularMarketPrice"] == None):
-        raise NameError("You enter an invalid stock ticker! Try again.")
+        raise NameError("You have entered an invalid stock ticker! Try again.")
     
     # Assert start date input value
     format = "%Y-%m-%d"
     try: datetime.datetime.strptime(start_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid start date! Try date formatted in YYYY-MM-DD.")
+        raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
     
     # Assert end date input value
     try: datetime.datetime.strptime(end_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid end end! Try date formatted in YYYY-MM-DD.")
+        raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
 
     # Assert end date is later than start date
     format = "%Y-%m-%d"
     if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
-        raise ValueError("You enter an end date which is earlier than the start date! Try again.")
+        raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
     
     # Import original dataframe by giving stock ticker, start data and end date
     data = yf.download(stock_ticker, start=start_date, end=end_date)
@@ -88,7 +90,7 @@ def percent_change(stock_ticker, start_date, end_date):
     return pd.DataFrame(data)
 
 
-def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
+def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     """
     Visualizes trend of a stock price change against the market benchmark within a given period of time
     
@@ -101,18 +103,96 @@ def profit_viz(stock_ticker, start_date, end_date, benchmark_ticker):
     end_date : string
         Final date for stock analysis
     benchmark_ticker : string 
-        Ticker for benchmark comparison such as 'SPX' 
+        Ticker for benchmark comparison such as 'SP500' 
     
     Returns
     --------
-    Interactive line plots which shows percentage change in stock price and market performance over time 
+     Line plots which shows percentage change in stock price and market performance over time 
     
     Examples
     --------
-    >>> profit_viz('AAPL', '01-01-2015', '01-01-2022', 'SPX')
+    >>> profit_viz('AAPL', '2015-01-01', '2021-31-12', 'SP500')
     """
-    pass
-    # TODO
+
+    
+    ticker = yf.Ticker(stock_ticker)
+    bench_ticker = yf.Ticker(benchmark_ticker)
+
+    try:
+         # Assert ticker input value
+        if(ticker.info["regularMarketPrice"] == None):
+            raise NameError("You have entered an invalid stock ticker! Try again.")
+
+        # check data type of input
+        if type(stock_ticker) != str:
+            raise TypeError("stock_ticker should be of type string.")
+    
+     # Assert benchmark ticker input value
+    
+        if(bench_ticker.info["regularMarketPrice"] == None):
+            raise NameError("You have entered an invalid benchmark ticker! Try again.")
+
+        # check data type of input
+        if type(benchmark_ticker) != str:
+            raise TypeError("Bench Mark ticker should be of type string.")
+    
+    # Assert start date input value
+        format = "%Y-%m-%d"
+        try: datetime.datetime.strptime(start_date, format)
+        except ValueError:
+            raise ValueError("You have entered an invalid start date! Try date formatted in YYYY-MM-DD.")
+    
+    # Assert end date input value
+        try: datetime.datetime.strptime(end_date, format)
+        except ValueError:
+            raise ValueError("You have entered an invalid end date! Try date formatted in YYYY-MM-DD.")
+
+    # Assert end date is later than start date
+        format = "%Y-%m-%d"
+        if(datetime.datetime.strptime(end_date, format) < datetime.datetime.strptime(start_date, format)):
+            raise ValueError("You have entered an end date which is earlier than the start date! Try again.")
+       
+    except (TypeError, ValueError, NameError) as err:
+        print(err)
+        raise 
+
+    # Code to generate the visualization of profit 
+    try:
+        stock_profit = percent_change(stock_ticker, start_date, end_date).reset_index()
+        benchmark_profit = percent_change(benchmark_ticker, start_date, end_date).reset_index()
+        profit_df = pd.merge(stock_profit, benchmark_profit, on="Date")
+        profit_df.rename({'Price Change Percentage(%)_x': 'Profit Percent Stock', 'Price Change Percentage(%)_y': 'Profit Percent Benchmark'}, axis=1, inplace=True)
+    # catch when dataframe is None
+    except AttributeError:
+        pass
+
+    #Checks if the datatype of data frame is correct
+    try:
+        isinstance(profit_df, pd.DataFrame)
+    except ValueError:
+        raise ValueError("profit_df is not a pandas dataframe.")
+    
+    try:
+        isinstance(stock_profit, pd.DataFrame)
+    except ValueError:
+        raise ValueError("stock_profit couldnot be converted to a pandas dataframe.")
+
+    try:
+        isinstance(benchmark_profit, pd.DataFrame)
+    except ValueError:
+        raise ValueError("Benchmark_profit couldnot be converted to a pandas dataframe.")
+
+    # Code to plot the profit visualization
+    chart = alt.Chart(profit_df).mark_line().transform_fold(
+    fold=['Profit Percent Stock', 'Profit Percent Benchmark'], 
+    as_=['company', 'Profit Percent']
+).encode(
+    x='Date:T', 
+    y='Profit Percent:Q',
+    color=alt.Color('company:N', scale= alt.Scale(domain=['Profit Percent Stock','Profit Percent Benchmark'], range=['red', 'blue'])),
+    tooltip=[alt.Tooltip('Profit Percent Stock'),alt.Tooltip('Profit Percent Benchmark')]
+)
+    return chart
 
     
 def volume_change(stock_ticker, start_date, end_date):
@@ -147,21 +227,21 @@ def volume_change(stock_ticker, start_date, end_date):
     # Assert ticker value
     ticker = yf.Ticker(stock_ticker)
     if(ticker.info["regularMarketPrice"] == None):
-        raise NameError("You enter an invalid stock ticker! Try again.")
+        raise NameError("You have entered an invalid stock ticker! Try again.")
     # Assert date value
     format = "%Y-%m-%d"
     try: datetime.datetime.strptime(start_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid start date! Try again.")
+        raise ValueError("You have entered an invalid start date! Try again.")
     try: datetime.datetime.strptime(end_date, format)
     except ValueError:
-        raise ValueError("You enter an invalid end end! Try again.")
+        raise ValueError("You have entered an invalid end date! Try again.")
     df = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date)['Volume'].reset_index()
     # Assert correct data fetched
     try:
         isinstance(df, pd.DataFrame)
     except ValueError:
-        raise ValueError("You input can't be converted to a pandas dataframe.")
+        raise ValueError("Your input can't be converted to a pandas dataframe.")
     df['Volume_dif'] = df['Volume'].diff().to_frame()
     df["Volume_Change"] = np.select([df["Volume_dif"] > 0, df["Volume_dif"]<0], ["Increase", "Decrease"], 
                                     default = np.nan)
