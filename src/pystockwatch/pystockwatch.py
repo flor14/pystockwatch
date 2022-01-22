@@ -132,10 +132,18 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
         if(bench_ticker.info["regularMarketPrice"] == None):
             raise NameError("You have entered an invalid benchmark ticker! Try again.")
 
-        # check data type of input
+    # check data type of input
         if type(benchmark_ticker) != str:
             raise TypeError("Bench Mark ticker should be of type string.")
     
+    #check stock ticker and bench mark ticker are not same
+        if stock_ticker == bench_ticker:
+            raise NameError("Stock Mark ticker should not be same as Bench Ticker.")
+
+    #check stock ticker is not empty
+        if not stock_ticker or not bench_ticker:
+            raise ValueError("'Tickers' cannot be empty")
+
     # Assert start date input value
         format = "%Y-%m-%d"
         try: datetime.datetime.strptime(start_date, format)
