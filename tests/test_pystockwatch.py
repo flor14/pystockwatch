@@ -37,7 +37,7 @@ def test_volume_change():
     assert set(df_unique) <= set(indicators)
     
 
-def volume_viz():
+def test_volume_viz():
     vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
     assert vdf.shape[0] >= 1, 'dataframe should have at least one row'
     assert list(vdf.columns) == ['Date', 'Volume', 'Volume_Change'], "columns should be named 'Date', 'Volume', 'Volume_Change'"
