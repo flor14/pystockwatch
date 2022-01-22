@@ -27,10 +27,10 @@ def test_volume_change():
     df = volume_change("AAPL", "2017-01-01", "2017-01-10")
     
     # Test output datatype
-    assert type(df) == type(pd.DataFrame())
+    assert type(df) == type(pd.DataFrame()), "Expect a dataframe but given something else! "
     
     # Test output shape
-    assert len(df.columns) == 3
+    assert len(df.columns) == 3, "Dataframe should have three columns!"
   
     # Test indicators values
     indicators = ['nan', 'Decrease', 'Increase']
