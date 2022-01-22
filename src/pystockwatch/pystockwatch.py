@@ -279,13 +279,13 @@ def volume_viz(stock_ticker, start_date, end_date):
     
     Examples
     --------
-    >>> volume_viz('AAPL', '01-01-2015', '01-01-2022')
+    >>> volume_viz('AAPL', '2021-01-01', '2022-01-01')
     """
     try:
         vdf = volume_change(stock_ticker, start_date, end_date)
     # catch when dataframe is None
     except AttributeError:
-        pass
+        raise AttributeError("Invalid volume change input!")
     
     vdf_increase = vdf.loc[vdf['Volume_Change']=='Increase']
     vdf_decrease = vdf.loc[vdf['Volume_Change']=='Decrease']
@@ -301,4 +301,4 @@ def volume_viz(stock_ticker, start_date, end_date):
                     name='Volume Decrease'
                     ))
 
-    fig.show()
+    return fig
