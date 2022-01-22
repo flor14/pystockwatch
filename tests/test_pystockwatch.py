@@ -1,5 +1,6 @@
 from pystockwatch import pystockwatch
 from pytest import raises
+import pandas as pd
 
 def test_percent_change():
     # Invalid input for stock ticker
@@ -17,6 +18,12 @@ def test_percent_change():
     # End date is ealier than start date
     with raises(ValueError) as error_end_date:
         pystockwatch.percent_change("AAPL", "2017-01-10", "2017-01-01")
+
+    # Check output dataframe
+    output = pystockwatch.percent_change("AAPL", "2017-01-01", "2017-01-10")
+    assert isinstance(
+        output, pd.DataFrame
+    ), "Pandas dataframe object should be returned."
 
 
 def test_profit_viz():
