@@ -276,7 +276,7 @@ def volume_viz(stock_ticker, start_date, end_date):
         vdf = volume_change(stock_ticker, start_date, end_date)
     # catch when dataframe is None
     except AttributeError:
-        pass
+        raise AttributeError("Invalid volume change input!")
     
     vdf_increase = vdf.loc[vdf['Volume_Change']=='Increase']
     vdf_decrease = vdf.loc[vdf['Volume_Change']=='Decrease']
