@@ -1,5 +1,15 @@
-from pystockwatch import pystockwatch
+# authors: Affrin Sultana, Helin Wang, Shi Yan Wang and Pavel Levchenko
+# January,2022
+
+from pystockwatch.pystockwatch import percent_change
+from pystockwatch.pystockwatch import profit_viz
+from pystockwatch.pystockwatch import volume_change
+from pystockwatch.pystockwatch import volume_viz
+
+import altair as alt
+import pytest
 from pytest import raises
+
 
 def test_percent_change():
     # Invalid input for stock ticker
@@ -19,8 +29,53 @@ def test_percent_change():
         percent_change("AAPL", "2017-01-10", "2017-01-01")
 
 
-def test_profit_viz():
-  pass
+def test_profit_viz_input():
+    """
+    Test input, output and exeption handling for profit_viz()
+    Example
+    -------
+    >>> test_profit_viz_input()
+    """
+
+    # Raise specific type errors
+
+    #Invalid input for stock ticker
+    with pytest.raises(NameError):
+        profit_viz("XYZ", "2017-01-01", "2017-01-10","MSFT")
+
+    # Invalid input for bench ticker
+    with pytest.raises(NameError):
+        profit_viz("AAPL", "2017-01-01", "2017-01-10","XYZ")
+
+    # Invalid input for start date
+    with pytest.raises(ValueError):
+        profit_viz("AAPL", "20170101", "2017-01-10","MSFT")
+    
+    # Invalid input for end date
+    with pytest.raises(ValueError):
+        profit_viz("AAPL", "2017-01-01", "20170110","MSFT")
+
+    # End date is ealier than start date
+    with pytest.raises(ValueError):
+        profit_viz("AAPL", "2017-01-10", "2017-01-01","MSFT")
+    
+def test_profit_viz_plot():
+    """
+    Test plot title and type for profit_viz()
+    Example
+    -------
+    >>> test_profit_viz_plot()
+    """
+
+
+    chart =  profit_viz("AAPL", "2017-01-01", "2017-01-10","MSFT")
+    dict = chart.to_dict()
+    assert dict['encoding']['x']['field'] == 'Date', 'Date should be mapped to the x axis'
+    assert dict['encoding']['y']['field'] == 'Profit Percent', 'Profit Percent should be mapped to the y axis'
+    assert dict['mark'] == 'line', "Altair mark should be 'line'"
+    assert dict['title'] == 'Profit Percent trend of Stock vs Benchmark ticker', "Title is incorrect should be 'line'"
+    
+    
 
 
 def test_volume_change():
