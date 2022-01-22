@@ -24,7 +24,7 @@ def test_profit_viz():
 
 
 def test_volume_change():
-    df = volume_change("A", "2017-01-01", "2017-01-01")
+    df = volume_change("AAPL", "2017-01-01", "2017-01-10")
     
     # Test output datatype
     assert type(df) == type(pd.DataFrame())
@@ -34,7 +34,6 @@ def test_volume_change():
   
     # Test indicators values
     indicators = ['nan', 'Decrease', 'Increase']
-    df = volume_change("A", "2017-01-01", "2017-01-01")
     df_unique = df["Volume_Change"].unique()
     assert set(df_unique) <= set(indicators)
     
