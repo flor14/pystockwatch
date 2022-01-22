@@ -15,22 +15,22 @@ import pandas as pd
 def test_percent_change():
     # Invalid input for stock ticker
     with raises(NameError) as error_ticker:
-        pystockwatch.percent_change("Some Stock", "2017-01-01", "2017-01-10")
+        percent_change("Some Stock", "2017-01-01", "2017-01-10")
 
     # Invalid input for start date
     with raises(ValueError) as error_start_date:
-        pystockwatch.percent_change("AAPL", "20170101", "2017-01-10")
+        percent_change("AAPL", "20170101", "2017-01-10")
 
     # Invalid input for end date
     with raises(ValueError) as error_end_date:
-        pystockwatch.percent_change("AAPL", "2017-01-01", "20170110")
+        percent_change("AAPL", "2017-01-01", "20170110")
 
     # End date is ealier than start date
     with raises(ValueError) as error_end_date:
-        pystockwatch.percent_change("AAPL", "2017-01-10", "2017-01-01")
+       percent_change("AAPL", "2017-01-10", "2017-01-01")
 
     # Check output dataframe
-    output = pystockwatch.percent_change("AAPL", "2017-01-01", "2017-01-10")
+    output = percent_change("AAPL", "2017-01-01", "2017-01-10")
     assert isinstance(
         output, pd.DataFrame
     ), "Pandas dataframe object should be returned."
