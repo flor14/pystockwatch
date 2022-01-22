@@ -24,26 +24,14 @@ def test_profit_viz():
 
 
 def test_volume_change():
-    # Invalid stock ticker
-    test_1 = "invalid ticker"
-    with raises(NameError) as error_ticker:
-        volume_change(test_1, "2021-12-01", "2021-12-31")
-    assert(
-        str(error_ticker.value) == "You enter an invalid stock ticker! Try again.")
+    df = volume_change("A", "2017-01-01", "2017-01-01")
     
-    # Invalid date
-    test_2 = "invalid start_date"
-    with raises(ValueError) as error_start_date:
-        volume_change("A", "2021", "2021-01-01")
-    assert(
-        str(error_start_date.value) == "You enter an invalid start date! Try again.")
+    # Test output datatype
+    assert type(df) == type(pd.DataFrame())
     
-    test_3 = "invalid_end_date"
-    with raises(ValueError) as error_end_date:
-        volume_change("A", "2021-01-01", 100)
-    assert(
-        str(error_end_date.value) == "You enter an invalid end date! Try again.")
-
+    # Test output shape
+    assert len(df.columns) == 3
+  
     # Test indicators values
     indicators = ['nan', 'Decrease', 'Increase']
     df = volume_change("A", "2017-01-01", "2017-01-01")
