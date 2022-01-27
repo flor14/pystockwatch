@@ -96,7 +96,7 @@ def test_volume_change():
   
     # Test indicators values
     indicators = ['nan', 'Decrease', 'Increase']
-    df_unique = df["Volume_Change"].unique()
+    df_unique = df["Indicators"].unique()
     assert set(df_unique) <= set(indicators)
     
 
