@@ -272,7 +272,7 @@ def volume_viz(stock_ticker, start_date, end_date):
     >>> volume_viz('AAPL', '2021-01-01', '2022-01-01')
     """
     try:
-        vdf = volume_change(stock_ticker, start_date, end_date).reset_index()
+        vdf = volume_change(stock_ticker, start_date, end_date)
     # catch when dataframe is None
     except AttributeError:
         raise AttributeError("Invalid volume change input!")
