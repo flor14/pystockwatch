@@ -103,7 +103,7 @@ def test_volume_change():
 def test_volume_viz():
     vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
     assert vdf.shape[0] >= 1, 'dataframe should have at least one row'
-    assert list(vdf.columns) == ['Date', 'Volume', 'Volume_Change'], "columns should be named 'Date', 'Volume', 'Volume_Change'"
+    assert list(vdf.columns) == ['Date', 'Volume', 'Indicators'], "columns should be named 'Date', 'Volume', 'Indicators'"
     assert vdf['Volume'].min() >= 0, 'trading volumes should be positive'
     
 
