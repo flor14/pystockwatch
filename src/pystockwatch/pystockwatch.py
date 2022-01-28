@@ -286,8 +286,8 @@ def volume_viz(stock_ticker, start_date, end_date):
     except AttributeError:
         raise AttributeError("Invalid volume change input!")
     
-    vdf_increase = vdf.loc[vdf['Price_Change']=='Increase']
-    vdf_decrease = vdf.loc[vdf['Price_Change']=='Decrease']
+    vdf_increase = vdf.loc[vdf['Price_change']=='Increase']
+    vdf_decrease = vdf.loc[vdf['Price_change']=='Decrease']
 
     fig = go.Figure()
     fig.add_trace(go.Bar(x=vdf_increase['Date'], y=vdf_increase['Volume'],
