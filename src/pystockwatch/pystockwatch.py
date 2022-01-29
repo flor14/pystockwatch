@@ -35,11 +35,11 @@ def percent_change(stock_ticker, start_date, end_date):
     >>> percent_change('AAPL', '2017-01-01', '2017-01-10')
                     Price Change Percentage(%) 
               Date
-        2017-01-03                        0.00
-        2017-01-04                       -0.11
-        2017-01-05                        0.40
-        2017-01-06                        1.52
-        2017-01-09                        2.45
+        2017-01-03                        0.000
+        2017-01-04                       -0.112
+        2017-01-05                        0.396
+        2017-01-06                        1.515
+        2017-01-09                        2.445
     """ 
     
     # Assert ticker input value
