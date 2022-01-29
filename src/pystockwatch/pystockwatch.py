@@ -40,15 +40,6 @@ def percent_change(stock_ticker, start_date, end_date):
         2017-01-05                      0.3960
         2017-01-06                      1.5153
         2017-01-09                      2.4451
-    >>> percent_change('AAPL MSFT', '2017-01-01', '2017-01-10')
-                    Price Change Percentage(%) 
-                              AAPL        MSFT
-              Date
-        2017-01-03          0.0000      0.0000
-        2017-01-04         -0.1119     -0.4474
-        2017-01-05          0.3960     -0.4474
-        2017-01-06          1.5153      0.4155
-        2017-01-09          2.4451      0.0959
     """ 
     
     # Assert ticker input value
@@ -80,9 +71,9 @@ def percent_change(stock_ticker, start_date, end_date):
     
     # Carry out calculation
     for i in range(1,len(data)):
-        data.iloc[i,:] = (data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]*100
+        data.iloc[i,:] = round((data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]*100,3)
     
-    data.iloc[0,:] = (data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]*100
+    data.iloc[0,:] = round((data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]*100,3)
     
     # Manipulate column name
     data = data.rename(columns={"Close": "Price Change Percentage(%)"})
@@ -112,7 +103,7 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     
     Examples
     --------
-    >>> profit_viz('AAPL', '2015-01-01', '2021-31-12', 'SP500')
+    >>> profit_viz('AAPL', '2015-01-01', '2021-12-31', 'SP500')
     """
 
     
@@ -197,7 +188,7 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     as_=['company', 'Profit Percent']
 ).encode(
     x='Date:T', 
-    y='Profit Percent:Q',
+    y = alt.Y('Profit Percent:Q', axis=alt.Axis(format='$.2f')),
     color=alt.Color('company:N', scale= alt.Scale(domain=['Profit Percent Stock','Profit Percent Benchmark'], range=['red', 'blue'])),
     tooltip=[alt.Tooltip('Profit Percent Stock'),alt.Tooltip('Profit Percent Benchmark')]
 )
@@ -286,8 +277,10 @@ def volume_viz(stock_ticker, start_date, end_date):
     except AttributeError:
         raise AttributeError("Invalid volume change input!")
     
+
     vdf_increase = vdf.loc[vdf['Price_change']=='Increase']
     vdf_decrease = vdf.loc[vdf['Price_change']=='Decrease']
+
 
     fig = go.Figure()
     fig.add_trace(go.Bar(x=vdf_increase['Date'], y=vdf_increase['Volume'],

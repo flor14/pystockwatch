@@ -13,6 +13,13 @@ import pandas as pd
 
 
 def test_percent_change():
+    """
+    Test input, output and exeption handling for percent_change()
+    Example
+    -------
+    >>> test_percent_change()
+    """
+
     # Invalid input for stock ticker
     with raises(NameError) as error_ticker:
         percent_change("Some Stock", "2017-01-01", "2017-01-10")
@@ -43,6 +50,12 @@ def test_profit_viz_input():
     -------
     >>> test_profit_viz_input()
     """
+    profit = percent_change("AAPL", "2017-01-01", "2017-01-10").reset_index()
+
+    # Regression Testing
+    assert profit.shape[0] >= 1, 'dataframe should have at least one row'
+    # Test output shape
+    assert len(profit.columns) == 2, "Dataframe should have two columns!"
 
     # Raise specific type errors
 
@@ -77,6 +90,7 @@ def test_profit_viz_plot():
 
     chart =  profit_viz("AAPL", "2017-01-01", "2017-01-10","MSFT")
     dict = chart.to_dict()
+    assert type(chart) == type(alt.Chart()), "Expected an altair Chart but given something else! "
     assert dict['encoding']['x']['field'] == 'Date', 'Date should be mapped to the x axis'
     assert dict['encoding']['y']['field'] == 'Profit Percent', 'Profit Percent should be mapped to the y axis'
     assert dict['mark'] == 'line', "Altair mark should be 'line'"
@@ -86,6 +100,13 @@ def test_profit_viz_plot():
 
 
 def test_volume_change():
+    """
+    Test input, output and exeption handling for volume_change()
+    Example
+    -------
+    >>> test_volume_change()
+    """
+
     df = volume_change("AAPL", "2017-01-01", "2017-01-10")
     
     # Test output datatype
@@ -101,9 +122,18 @@ def test_volume_change():
     
 
 def test_volume_viz():
+    """
+    Test input, output and exeption handling for volume_viz()
+    Example
+    -------
+    >>> test_volume_viz()
+    """
+
     vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
     assert vdf.shape[0] >= 1, 'dataframe should have at least one row'
+
     assert list(vdf.columns) == ['Date', 'Volume', 'Price_change'], "columns should be named 'Date', 'Volume', 'Price_Change'"
+
     assert vdf['Volume'].min() >= 0, 'trading volumes should be positive'
     
 
