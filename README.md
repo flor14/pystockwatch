@@ -55,7 +55,7 @@ percent_change('AAPL', '2017-01-01', '2017-01-10')
 fig = profit_viz('AAPL', '2015-01-01', '2021-12-31', 'SP500')
 fig.show()
 ```
-<img src="docs/percent_change_example.png">
+![**Percent Change**](https://github.com/UBC-MDS/pystockwatch/blob/main/docs/percent_change_example.png?raw=true)
 
 ### To check daily trading volume change of a stock
 
@@ -68,11 +68,12 @@ volume_change('AAPL', '2021-01-01', '2022-01-01')
 vol = volume_viz('AAPL', '2021-01-01', '2022-01-01')
 vol.show()
 ```
- <img src="docs/volume_plot_example.png">
+ ![**Volume Change**](https://github.com/UBC-MDS/pystockwatch/blob/main/docs/volume_plot_example.png?raw=true)
 
 ## Documentation
 
-The documentation is hosted on Read the Docs: here()
+The documentation of this package is hosted on Read the Docs: [here](https://pystockwatch.readthedocs.io/)
+
 ## Contributors
 
 * Affrin Sultana
