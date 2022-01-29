@@ -99,7 +99,8 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     
     Returns
     --------
-     Line plots which shows percentage change in stock price and market performance over time 
+     Chart
+        Line plots which shows percentage change in stock price and market performance over time 
     
     Examples
     --------
@@ -210,6 +211,7 @@ def volume_change(stock_ticker, start_date, end_date):
 
     Returns
     --------
+    DataFrame
         A data frame with dates and their corresponding trading volume and changes
     Examples
     --------
@@ -265,7 +267,8 @@ def volume_viz(stock_ticker, start_date, end_date):
     
     Returns
     --------
-    Interactive plot with overlay of line plots and bar plot
+    Chart
+        Interactive bar plot created to view the volume change
     
     Examples
     --------
