@@ -5,6 +5,9 @@ description = "A package which calculates and visualizes the profitability and t
 authors = ["Affrin Sultana, Helin Wang, Pavel Levchenko, Shi Yan Wang"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/UBC-MDS/pystockwatch"
+repository = "https://github.com/UBC-MDS/pystockwatch"
+documentation = 'https://pystockwatch.readthedocs.io'
 
 [tool.poetry.dependencies]
 python = "^3.9"
