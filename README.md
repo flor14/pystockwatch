@@ -1,11 +1,11 @@
 # pystockwatch
+
 ![](https://github.com/UBC-MDS/pystockwatch/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/UBC-MDS/pystockwatch/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/pystockwatch) ![Release](https://github.com/UBC-MDS/pystockwatch/workflows/Release/badge.svg)
 
 [![Documentation Status](https://readthedocs.org/projects/convertemppy/badge/?version=latest)](https://convertemppy.readthedocs.io/en/latest/?badge=latest)
-This toy package is created as part of a group project for DSCI524 of UBC-MDS program. Main idea of the package is to provide a very simple interface for checking movements in stock prices in comparison to the market. This is implemented by accessing public data from Yahoo Finance by selecting a ticker of the stock, range of start and end dates and benchmark for comparison, such as SP500 or NASDAQ. As a result of data processing with pystockwatch package, user will be able to generate two plots: one with two lines showing percentage change since the start date and volumes of trading and another related to daily volume of stock trades as shown at examples below
- <img src="docs/percent_change_example.png">
- 
- <img src="docs/volume_plot_example.png">
+
+This package has been created to provide a very simple interface for checking movements in stock prices in comparison to the market. This is implemented by accessing public data from Yahoo Finance by selecting a ticker of the stock, range of start and end dates and benchmark for comparison, such as `SP500` or `NASDAQ`. As a result of data processing with pystockwatch package, users will be able to generate two plots: one with two lines showing percentage change in profit since the start date and volumes of trading and another related to daily change in the volume of stock trades as shown at examples below
+
  
  #### Functions description
  
@@ -27,22 +27,70 @@ There are many packages written for analysis of stock data. One of the most popu
 ## Installation
 
 ```bash
-$ pip install pystockwatch
+$ pip install https://github.com/UBC-MDS/pystockwatch
 ```
 
 ## Usage
-Usage clarification will be updated after completion of all functions. In general, after installation of this package user will be required to input four parameters: `stock_ticker`, `start_date`, `end_date` and `benchmark_ticker`. Output results will be in form of an interactive plot based on "plotly" and "altair" package. 
+After the sucessful installation of this package user will be required to input four parameters: `stock_ticker`, `start_date`, `end_date` and `benchmark_ticker`. Output results will be in form of an interactive plot based on "plotly" and "altair" package.
 
+`pystockwatch` can be used to fnd the profit percent of stock prices in comparison to the market and check the trend in volume change of stocks and plot results as follows:
+
+Import the functions from package with following commands:
+
+```python
+from pystockwatch.pystockwatch import percent_change
+from pystockwatch.pystockwatch import profit_viz
+from pystockwatch.pystockwatch import volume_change
+from pystockwatch.pystockwatch import volume_viz
+```
+### To check the Profit percent
+
+```
+percent_change('AAPL', '2017-01-01', '2017-01-10')
+```
+
+### To Visualize the profit percentage change trend of a stock against market benchmark
+
+```
+fig = profit_viz('AAPL', '2015-01-01', '2021-12-31', 'SP500')
+fig.show()
+```
+<img src="docs/percent_change_example.png">
+
+### To check daily trading volume change of a stock
+
+```
+volume_change('AAPL', '2021-01-01', '2022-01-01')
+```
+### To Visualize the volume change trend of a stock 
+
+```
+vol = volume_viz('AAPL', '2021-01-01', '2022-01-01')
+vol.show()
+```
+ <img src="docs/volume_plot_example.png">
+
+## Documentation
+
+The documentation is hosted on Read the Docs: here()
 ## Contributors
 
-Affrin Sultana, Helin Wang, Pavel Levchenko, Shi Yan Wang
+* Affrin Sultana
+* Helin Wang
+* Pavel Levchenko
+* Shi Yan Wang
+
+## Contributing
+
+Are you interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
 
 ## Dependencies
-To use this package please use Python version 3.8 or higher. Also download several dependencies with [yaml file](https://github.com/UBC-MDS/pystockwatch/blob/main/dependencies-pystockwatch.yaml) by running the following command at the command line/terminal
-``` bash
-conda env create --file dependencies-pystockwatch.yaml
-conda activate pystockwatch
-```
+Before the installation of this package please install the following packages:
+
+* python = "^3.9"
+* pandas = "^1.3.5"
+* altair = "^4.2.0"
+* altair_viewer = "^0.4.0"
 
 ## License
 
