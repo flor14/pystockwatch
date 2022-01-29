@@ -19,7 +19,7 @@ def percent_change(stock_ticker, start_date, end_date):
     Parameters
     ----------
     stock_ticker : string 
-        Ticker of the stock such as 'AAPL', or 'AAPL MSFT SPY' for multiple tickers
+        Ticker of the stock such as 'AAPL'
     start_date : string
         Initial date for data extraction
     end_date : string
@@ -35,11 +35,11 @@ def percent_change(stock_ticker, start_date, end_date):
     >>> percent_change('AAPL', '2017-01-01', '2017-01-10')
                     Price Change Percentage(%) 
               Date
-        2017-01-03                      0.0000
-        2017-01-04                     -0.1119
-        2017-01-05                      0.3960
-        2017-01-06                      1.5153
-        2017-01-09                      2.4451
+        2017-01-03                        0.000
+        2017-01-04                       -0.112
+        2017-01-05                        0.396
+        2017-01-06                        1.515
+        2017-01-09                        2.445
     """ 
     
     # Assert ticker input value
@@ -71,9 +71,9 @@ def percent_change(stock_ticker, start_date, end_date):
     
     # Carry out calculation
     for i in range(1,len(data)):
-        data.iloc[i,:] = round((data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]*100,3)
+        data.iloc[i,:] = round((data.iloc[i,:] - data.iloc[0,:])/data.iloc[0,:]*100, 3)
     
-    data.iloc[0,:] = round((data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]*100,3)
+    data.iloc[0,:] = round((data.iloc[0,:] - data.iloc[0,:])/data.iloc[0,:]*100, 3)
     
     # Manipulate column name
     data = data.rename(columns={"Close": "Price Change Percentage(%)"})
@@ -237,7 +237,7 @@ def volume_change(stock_ticker, start_date, end_date):
     except ValueError:
         raise ValueError("You have entered an invalid end date! Try again.")
         
-    df = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date)
+    df = pdr.get_data_yahoo(stock_ticker, start=start_date, end=end_date).reset_index()
     
     # Assert correct data fetched
     try:
@@ -245,10 +245,10 @@ def volume_change(stock_ticker, start_date, end_date):
     except ValueError:
         raise ValueError("Your input can't be converted to a pandas dataframe.")
     
-    df["Price_change"] = df["Adj Close"].diff().to_frame()
-    df['Indicators'] = np.select([df["Price_change"] > 0, df["Price_change"] < 0],
+    df["Price_diff"] = df["Close"].diff().to_frame()
+    df['Price_change'] = np.select([df["Price_diff"] > 0, df["Price_diff"] < 0],
                                  ["Increase", "Decrease"], default = np.nan)
-    return df[["Volume", "Indicators"]]
+    return df[["Date", "Volume", "Price_change"]]
     
 
 def volume_viz(stock_ticker, start_date, end_date):
@@ -277,18 +277,20 @@ def volume_viz(stock_ticker, start_date, end_date):
     except AttributeError:
         raise AttributeError("Invalid volume change input!")
     
-    vdf_increase = vdf.loc[vdf['Indicators']=='Increase']
-    vdf_decrease = vdf.loc[vdf['Indicators']=='Decrease']
+
+    vdf_increase = vdf.loc[vdf['Price_change']=='Increase']
+    vdf_decrease = vdf.loc[vdf['Price_change']=='Decrease']
+
 
     fig = go.Figure()
     fig.add_trace(go.Bar(x=vdf_increase['Date'], y=vdf_increase['Volume'],
                     base=0,
                     marker_color='green',
-                    name='Volume Increase'))
+                    name='Price Increase'))
     fig.add_trace(go.Bar(x=vdf_decrease['Date'], y=vdf_decrease['Volume'],
                     base=0,
                     marker_color='red',
-                    name='Volume Decrease'
+                    name='Price Decrease'
                     ))
 
     return fig

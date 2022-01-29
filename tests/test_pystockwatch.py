@@ -117,7 +117,7 @@ def test_volume_change():
   
     # Test indicators values
     indicators = ['nan', 'Decrease', 'Increase']
-    df_unique = df["Indicators"].unique()
+    df_unique = df["Price_change"].unique()
     assert set(df_unique) <= set(indicators)
     
 
@@ -131,7 +131,9 @@ def test_volume_viz():
 
     vdf = volume_change('AAPL', '2015-01-01', '2016-01-01')
     assert vdf.shape[0] >= 1, 'dataframe should have at least one row'
-    assert list(vdf.columns) == ['Date', 'Volume', 'Indicators'], "columns should be named 'Date', 'Volume', 'Indicators'"
+
+    assert list(vdf.columns) == ['Date', 'Volume', 'Price_change'], "columns should be named 'Date', 'Volume', 'Price_Change'"
+
     assert vdf['Volume'].min() >= 0, 'trading volumes should be positive'
     
 
