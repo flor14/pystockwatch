@@ -99,8 +99,8 @@ def profit_viz(stock_ticker, start_date , end_date, benchmark_ticker):
     
     Returns
     --------
-     Chart
-        Line plots which shows percentage change in stock price and market performance over time 
+    Altair Chart
+        A line chart which shows percentage change in stock price and market performance over time 
     
     Examples
     --------
@@ -213,6 +213,7 @@ def volume_change(stock_ticker, start_date, end_date):
     --------
     DataFrame
         A data frame with dates and their corresponding trading volume and changes
+
     Examples
     --------
         >>> volume_change('AAPL', '2021-01-01', '2022-01-01')
@@ -256,11 +257,12 @@ def volume_change(stock_ticker, start_date, end_date):
 def volume_viz(stock_ticker, start_date, end_date):
     """
     Visualize the daily trading volume of a stock using bar plot within a given period of time
+    
     Parameters
     ----------
-    stock_ticker : string  
+    stock_ticker : string 
         Ticker of the stock such as 'AAPL'
-    start_date : string 
+    start_date : string
         Initial date for data extraction
     end_date : string 
         Final date for stock analysis
