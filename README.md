@@ -1,5 +1,11 @@
 # pystockwatch
+
+![](https://github.com/UBC-MDS/pystockwatch/workflows/build/badge.svg) [![codecov](https://codecov.io/gh/UBC-MDS/pystockwatch/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/pystockwatch) ![Release](https://github.com/UBC-MDS/pystockwatch/workflows/Release/badge.svg)
+
+[![Documentation Status](https://readthedocs.org/projects/convertemppy/badge/?version=latest)](https://convertemppy.readthedocs.io/en/latest/?badge=latest)
+
 This package has been created to provide a very simple interface for checking movements in stock prices in comparison to the market. This is implemented by accessing public data from Yahoo Finance by selecting a ticker of the stock, range of start and end dates and benchmark for comparison, such as `SP500` or `NASDAQ`. As a result of data processing with pystockwatch package, users will be able to generate two plots: one with two lines showing percentage change in profit since the start date and volumes of trading and another related to daily change in the volume of stock trades as shown at examples below
+
  
  #### Functions description
  
