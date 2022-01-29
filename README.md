@@ -1,4 +1,4 @@
-# pystockwatch
+# pystockwatch  
 
 [![codecov](https://codecov.io/gh/UBC-MDS/pystockwatch/branch/main/graph/badge.svg?token=c6vEGpbs3h)](https://codecov.io/gh/UBC-MDS/pystockwatch)
 [![build](https://github.com/UBC-MDS/pystockwatch/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/pystockwatch/actions/workflows/ci-cd.yml)
